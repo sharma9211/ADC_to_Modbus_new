@@ -138,9 +138,8 @@ int main(void)
     // Modbus_SendResponse(1, 0x03, adc_data, 2);
 
     // Debug print
-    printf("Sent ADC value: %d\r\n", adc_value);
+   // printf("Sent ADC value: %d\r\n", adc_value);
 
-    HAL_Delay(1000);
     printf("Hello UART3\r\n");
     HAL_Delay(1000);
     
