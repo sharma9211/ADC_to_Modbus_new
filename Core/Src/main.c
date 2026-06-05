@@ -121,18 +121,21 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     
-    // Dummy ADC value for testing
-    uint16_t adc_value = 1234;
-    uint8_t adc_data[2];
-    adc_data[0] = (adc_value >> 8) & 0xFF; // High byte
-    adc_data[1] = adc_value & 0xFF;        // Low byte
+    // // Dummy ADC value for testing
+    // uint16_t adc_value = 1234;
+    // uint8_t adc_data[2];
+    // adc_data[0] = (adc_value >> 8) & 0xFF; // High byte
+    // adc_data[1] = adc_value & 0xFF;        // Low byte
 
-    // Send Modbus response (Slave ID=1, Function=0x03)
-    Modbus_SendResponse(1, 0x03, adc_data, 2);
+    // // Send Modbus response (Slave ID=1, Function=0x03)
+    // Modbus_SendResponse(1, 0x03, adc_data, 2);
 
     // Debug print
     printf("Sent ADC value: %d\r\n", adc_value);
@@ -163,8 +166,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV2;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -176,7 +181,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2
                               |RCC_CLOCKTYPE_PCLK3;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
